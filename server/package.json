@@ -1,0 +1,19 @@
+{
+  "name": "test-fe-graphql",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start-server": "npx nodemon --watch ./schema.graphql --watch ./server.ts --exec 'ts-node' ./server.ts"
+  },
+  "dependencies": {
+    "apollo-server": "^2.23.0",
+    "casual": "^1.6.2",
+    "graphql": "^15.6.0",
+    "node-random-name": "^1.0.1",
+    "random-date-generator": "^1.0.2",
+    "ts-node": "^10.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
+}

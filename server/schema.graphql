@@ -1,0 +1,43 @@
+# Glossary: https://en.wikipedia.org/wiki/Glossary_of_association_football_terms
+
+schema {
+  query: RootQueryType
+}
+
+type RootQueryType {
+  nextMatch: Match!
+}
+
+scalar Date
+
+enum Position {
+  Goalkeeper
+  Defender
+  Midfielder
+  Striker
+}
+
+type Player {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  height: Int!
+  dateOfBirth: Date!
+  position: Position!
+  squadNumber: Int!
+  nationality: String!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  stadium: String!
+  firstEleven: [Player]!
+}
+
+type Match {
+  id: ID!
+  date: Date!
+  home: Team!
+  away: Team!
+}
