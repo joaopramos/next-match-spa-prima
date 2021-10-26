@@ -1,0 +1,50 @@
+.Team {
+  display: block;
+  font-size: 1rem;
+}
+
+.table {
+  display: table;
+  text-align: left;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableHeaderRow {
+  composes: tableRow;
+}
+
+.tableHeaderRow div {
+  min-width: 40px;
+  padding-right: 10px;
+  color: lightgrey;
+}
+
+.tableHeaderRow button {
+  margin-right: 15px;
+  padding-right: 15px;
+  border: none;
+  background-color: transparent;
+  padding: 5px;
+  color: lightgrey;
+  font-size: 1rem;
+}
+
+.tableHeaderRow button:hover {
+  cursor: pointer;
+}
+
+.tableRow[role="button"] {
+  cursor: pointer;
+}
+
+.tableRow div {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+.table-th {
+  padding-right: 30px;
+}

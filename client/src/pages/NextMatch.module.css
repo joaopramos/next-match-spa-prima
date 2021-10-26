@@ -1,0 +1,40 @@
+.NextMatch {
+  font-size: 1rem;
+  margin-bottom: 100px;
+  margin-top: 30px;
+}
+
+.NextMatch h2,
+h1 {
+  margin: 10px 20px 30px;
+}
+
+.NextMatch time {
+  display: block;
+}
+
+.TeamSideBySide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.VS {
+  position: relative;
+  font-size: 50px;
+  height: 70px;
+  width: auto;
+  min-width: auto;
+  margin: 20px;
+}
+
+@media only screen and (max-width: 850px) {
+  h2 span {
+    display: block;
+    word-wrap: break-word;
+  }
+  .VS {
+    width: 100%;
+  }
+}
