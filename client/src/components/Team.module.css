@@ -16,6 +16,10 @@
   composes: tableRow;
 }
 
+.tableRow:global(.active) {
+  background-color: red !important;
+}
+
 .tableHeaderRow div {
   min-width: 40px;
   padding-right: 10px;

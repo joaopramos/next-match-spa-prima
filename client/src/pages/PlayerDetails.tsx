@@ -1,19 +1,49 @@
 import { format } from "date-fns";
+import { gql, useQuery } from "@apollo/client";
+import { Link, useParams } from "react-router-dom";
 
-import { PlayerDetails as PlayerDetailsType } from "../types/store";
+import * as NextMatchTypes from "../types/NextMatch";
+
+import Loading from "../components/Loading";
 
 import styles from "./PlayerDetails.module.css";
 
-interface PlayerDetailsProps {
-  player: PlayerDetailsType;
-  goBack: () => void;
+export const GET_NEXT_PLAYER = gql`
+  query player($playerId: ID!) {
+    player(playerId: $playerId) {
+      id
+      firstname
+      lastname
+      height
+      dateOfBirth
+      position
+      squadNumber
+      nationality
+    }
+  }
+`;
+
+type PlayerQuery = {
+  player: NextMatchTypes.MatchPlayer;
+};
+
+interface PlayerParams {
+  playerId: string;
 }
 
-function PlayerDetails({ player, goBack }: PlayerDetailsProps) {
+function PlayerDetails() {
+  const { playerId } = useParams<PlayerParams>();
+  const { data, loading, error } = useQuery<PlayerQuery>(GET_NEXT_PLAYER, { variables: { playerId } });
+
+  if (loading) return <Loading />;
+  if (!data || error) return <p>An error occurred</p>;
+
+  const player = data.player;
+
   return (
     <section className={styles.PlayerDetails}>
       <nav>
-        <button onClick={goBack}>Back to next match</button>
+        <Link to="/">Back to next match</Link>
       </nav>
       <article>
         <h1> Player details </h1>
@@ -25,8 +55,6 @@ function PlayerDetails({ player, goBack }: PlayerDetailsProps) {
           <dd>{player.firstname}</dd>
           <dt>Last name:</dt>
           <dd>{player.lastname}</dd>
-          <dt>Team:</dt>
-          <dd>{player.team}</dd>
           <dt>Position:</dt>
           <dd>{player.position}</dd>
           <dt>Squad number:</dt>

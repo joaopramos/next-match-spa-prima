@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { store } from "../store";
 
 import * as MatchTypes from "../types/NextMatch";
-import { PlayerDetails } from "../types/store";
 
 import styles from "./Team.module.css";
 
@@ -19,7 +21,6 @@ export interface PlayerOrder {
 
 interface TeamProps {
   data: MatchTypes.Team;
-  selectPlayer: (player: PlayerDetails) => void;
 }
 
 const headers: Array<[string, OrderBy?]> = [
@@ -29,11 +30,14 @@ const headers: Array<[string, OrderBy?]> = [
   ["position", OrderBy.POSITION],
 ];
 
-function Team({ data, selectPlayer }: TeamProps) {
+function Team({ data }: TeamProps) {
   const [playerOrder, setPlayerOrder] = React.useState<PlayerOrder>({
     orderBy: OrderBy.SQUADNUMBER,
     orderASC: true,
   });
+  const { setState, state } = React.useContext(store);
+  const highlight = state.selectedPosition;
+  const setHighlight = (position: MatchTypes.Position | undefined) => setState({ selectedPosition: position });
 
   const players = data.firstEleven.slice().sort(makeCompareFn(playerOrder));
 
@@ -67,18 +71,18 @@ function Team({ data, selectPlayer }: TeamProps) {
         {players.map((player) => {
           const { id, lastname, firstname, position, squadNumber } = player;
           return (
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => selectPlayer({ ...player, team: data.name })}
-              className={styles.tableRow}
+            <Link
+              to={`/player/${id}`}
+              className={[styles.tableRow, highlight === position ? "active" : undefined].filter(Boolean).join(" ")}
               key={id}
+              onMouseEnter={() => setHighlight(position)}
+              onMouseLeave={() => setHighlight(undefined)}
             >
               <div> {squadNumber}</div>
               <div> {lastname}</div>
               <div> {firstname}</div>
               <div> {position}</div>
-            </div>
+            </Link>
           );
         })}
       </div>

@@ -2,14 +2,10 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 
-import { store } from "../store";
-
 import * as MatchTypes from "../types/NextMatch";
-import { PlayerDetails as PlayerDetailsType } from "../types/store";
 
 import Loading from "../components/Loading";
 import Team from "../components/Team";
-import PlayerDetails from "../components/PlayerDetails";
 
 import styles from "./NextMatch.module.css";
 
@@ -55,18 +51,12 @@ export const GET_NEXT_MATCH = gql`
 `;
 
 const NextMatch: React.FC = () => {
-  const { setState, state } = React.useContext(store);
-  const { selectedPlayer } = state;
-  const selectPlayer = (player?: PlayerDetailsType) => setState({ selectedPlayer: player });
-
   const { data, loading, error } = useQuery<NextMatchQuery>(GET_NEXT_MATCH);
 
   if (loading) return <Loading />;
   if (!data || error) return <p>An error occurred</p>;
 
-  return selectedPlayer ? (
-    <PlayerDetails player={selectedPlayer} goBack={() => selectPlayer(undefined)} />
-  ) : (
+  return (
     <main className={styles.NextMatch}>
       <div>
         <h1>
@@ -78,9 +68,9 @@ const NextMatch: React.FC = () => {
         </h2>
       </div>
       <div className={styles.TeamSideBySide}>
-        <Team data={data.nextMatch.home} selectPlayer={selectPlayer}></Team>
+        <Team data={data.nextMatch.home}></Team>
         <div className={styles.VS}>VS</div>
-        <Team data={data.nextMatch.away} selectPlayer={selectPlayer}></Team>
+        <Team data={data.nextMatch.away}></Team>
       </div>
     </main>
   );

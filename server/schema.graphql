@@ -6,6 +6,7 @@ schema {
 
 type RootQueryType {
   nextMatch: Match!
+  player(playerId: ID!): Player
 }
 
 scalar Date

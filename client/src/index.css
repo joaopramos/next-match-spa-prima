@@ -14,3 +14,14 @@ code {
 :root {
   --background-color: #282c34;
 }
+
+a:link,
+a:visited,
+a:active {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  font-weight: 700;
+}

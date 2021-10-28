@@ -8,7 +8,7 @@ type AppContext = {
 
 // INITIAL STATE
 const initialState: AppState = {
-  selectedPlayer: undefined,
+  selectedPosition: undefined,
 };
 
 const store = createContext<AppContext>({
